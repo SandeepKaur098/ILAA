@@ -1,80 +1,438 @@
-# ⚖️ Indian Legal Document Assistant
+# ⚖️ Indian Legal AI Assistant (ILAA)
 
-![Python](https://img.shields.io/badge/Python-3.11-blue)
-![PyTorch](https://img.shields.io/badge/PyTorch-Deep%20Learning-EE4C2C)
-![HuggingFace](https://img.shields.io/badge/HuggingFace-Transformers-F9AB00)
-![Streamlit](https://img.shields.io/badge/Streamlit-Cloud%20Deployment-FF4B4B)
-![LangChain](https://img.shields.io/badge/LangChain-RAG-121212)
-
-## 📖 The Problem vs. The Solution
-**The Problem:** General AI models (like ChatGPT) struggle with specific, regional laws. If you ask them about the Indian Penal Code (IPC), they often guess or "hallucinate" fake legal sections, making them unreliable for actual legal professionals or students.
-
-**The Solution:** I built the **Indian Legal Document Assistant**—a custom-trained Artificial Intelligence platform designed strictly for Indian Law. Instead of relying on generic APIs, I trained my own deep learning neural network to read criminal scenarios and predict the correct IPC sections with strict, mathematical accuracy. 
+An AI-powered Legal Assistant that combines **Retrieval-Augmented Generation (RAG), Legal-BERT, FAISS, Gemini, and FLAN-T5** to help users analyze legal documents, predict IPC sections, classify legal text, and generate concise legal summaries.
 
 ---
 
-## ✨ What Can This App Do? (Core Features)
+## 🚀 Live Demo
 
-This platform provides four powerful tools in one dashboard:
+### 🔗 Try the Application
 
-1. **🚨 IPC Section Predictor:** Type in a criminal scenario (e.g., *"a group of five people broke into a shop with weapons"*), and the custom AI will predict the exact IPC charges (e.g., *Section 34, Section 148*).
-2. **📄 Smart Legal Summarizer:** Paste a massive, complex court ruling, and the AI will cut through the legal jargon to give you a clean, 2-sentence summary of the final verdict.
-3. **💬 Chat with PDFs (Document Q&A):** Upload any legal document, contract, or FIR. You can then ask the AI questions about the document, and it will find the exact answers hidden inside the text.
-4. **🔍 Sentence Classifier:** Paste a line from a legal case, and the AI will identify if it is a Fact, an Argument, a Precedent, or a Final Ruling.
+**Hugging Face Deployment:**
 
----
+https://huggingface.co/spaces/Sandeep-Kaur12/Indian-Legal-AI-Assistant
 
-## 🏗️ Methodology (How It Was Built)
+### 💻 GitHub Repository
 
-┌─────────────────┐    ┌───────────────────┐    ┌────────────────┐    ┌───────────────┐    ┌─────────────────┐
-│ Data Collection │ ➔  │ Data Pre-Processing│ ➔  │ Model Training │ ➔  │ Model Testing │ ➔  │ Result Analysis │
-└─────────────────┘    └───────────────────┘    └────────────────┘    └───────────────┘    └─────────────────┘
-
-* **Data Sourced:** 3,000 highly complex Indian Legal Cases (IL-TUR Dataset).
-* **AI Architecture:** Fine-Tuned `nlpaueb/legal-bert-base-uncased`.
-* **Accuracy Boost:** Achieved a highly optimized F1 Macro score of 0.2783 by forcing the AI to strictly filter out low-confidence guesses.
+https://github.com/SandeepKaur098/ILAA
 
 ---
 
-## 📊 See It In Action (Input / Output)
+# 📖 Project Overview
 
-| The Crime Scenario (User Input) | Actual Crime | The AI's Prediction | Result |
-| :--- | :---: | :---: | :---: |
-| "A group of five individuals unlawfully assembled outside the complainant's shop. Acting with a shared common intention, they forcefully broke in and assaulted the shopkeeper using iron rods and sharp swords..." | Section 34 & 148 | Section 34 & 148 | ✔ |
-| "The two accused secretly planned for weeks to eliminate their business rival. They ambushed the victim in a dark alleyway late at night and fired three gunshots point-blank..." | Section 307 & 120B | Section 307 & 120B | ✔ |
-| "During a sudden dispute over a parking space, the defendant lost his temper, aggressively slapped the complainant across the face, and began shouting highly offensive and abusive language..." | Section 323 & 504 | Section 323 & 506 | ✔ |
+Legal documents are often lengthy, complex, and difficult to understand for non-legal professionals.
 
----
+The Indian Legal AI Assistant simplifies legal document analysis using Artificial Intelligence, Natural Language Processing, Deep Learning, and Large Language Models.
 
-## 💻 Live Demo & Screenshots
+The system enables users to:
 
-🔗 **Try the App Live:** [Insert your Streamlit/Hugging Face Link Here]
+* Upload legal PDF documents
+* Ask questions about uploaded documents
+* Predict relevant IPC sections from crime scenarios
+* Classify legal statements into legal categories
+* Generate concise summaries of lengthy legal text
 
-### The Live Dashboard
-![Dashboard Screenshot](replace_this_with_your_image_path.png)
-*(A sleek Streamlit UI handling real-time NLP predictions)*
+This project demonstrates practical implementation of:
 
-### AI Training Process
-![Loss Graph](replace_this_with_your_loss_graph_path.png)
-*(The AI successfully learning and reducing error over 4 training cycles)*
-
----
-
-## 🧠 Behind the Scenes: Deep Learning Engineering
-*(For the tech-savvy: How I optimized this for production)*
-
-* **Reading Massive Documents:** Standard AI models crash if a document is longer than 512 words. I engineered a **Sliding Window** technique that chops long legal cases into overlapping segments, allowing the AI to read an entire 10-page case file without missing a single detail.
-* **Teaching the AI to Care About Rare Crimes:** Theft happens more often than cyber-terrorism. To prevent the AI from only guessing common crimes, I used a custom **Multi-Label Focal Loss** function. This mathematically forces the neural network to pay equal attention to rare, complex laws.
-* **Fixing AI "Headline Bias":** Originally, the summarizer AI acted like a news reporter—it only read the first sentence of a case and ignored the ending. I fixed this by swapping to a highly optimized `FLAN-T5` model, which successfully scans the entire document to find the actual judge's ruling at the very bottom.
-* **Cloud Hardware Optimization:** The entire application is optimized to run smoothly on free-tier cloud CPU servers without running out of memory, proving the architecture is both smart and highly efficient.
+* Retrieval-Augmented Generation (RAG)
+* Transformer-Based NLP Models
+* Semantic Search
+* Vector Databases
+* Large Language Models
+* Legal Domain AI Applications
 
 ---
 
-## ⚙️ How to Run It Locally
+# 📸 Application Screenshots
 
-Want to test the code on your own machine? 
+## 🏠 Home / Document Q&A
 
-1. Clone this repository:
+![Home](assets/home.png)
+
+---
+
+## 🔍 Legal Text Classification
+
+![Classifier](assets/classifier.png)
+
+---
+
+## ⚖️ IPC Section Prediction
+
+![IPC Predictor](assets/ipc_predictor.png)
+
+---
+
+## 📄 AI Legal Summarizer
+
+![Summarizer](assets/summarizer.png)
+
+---
+
+# 🏗️ System Architecture
+
+![Architecture](assets/architecture.png)
+
+---
+
+# ✨ Key Features
+
+## 📄 1. Document Question Answering (RAG)
+
+Upload legal PDF documents and ask questions in natural language.
+
+### Workflow
+
+* PDF Upload
+* Text Extraction using PyPDF2
+* Text Chunking
+* Sentence Embedding Generation
+* FAISS Vector Storage
+* Similarity Search
+* Gemini 2.5 Flash Response Generation
+
+### Example
+
+Input:
+
+```text
+Who is the petitioner in this case?
+```
+
+Output:
+
+```text
+Answer generated directly from the uploaded document context.
+```
+
+---
+
+## ⚖️ 2. IPC Section Prediction
+
+Predicts the most relevant IPC sections from a crime scenario using a Legal-BERT based multi-label classification model.
+
+### Example
+
+Input:
+
+```text
+A person intentionally attacked another person with a sharp weapon causing severe injuries.
+```
+
+Output:
+
+```text
+IPC Section 324
+Confidence Score
+
+IPC Section 326
+Confidence Score
+```
+
+### Highlights
+
+* Legal-BERT Based
+* Multi-Label Classification
+* Dynamic Threshold Optimization
+* Top-3 Predictions Returned
+
+---
+
+## 🏛️ 3. Legal Text Classification
+
+Classifies legal statements into predefined legal categories.
+
+### Supported Categories
+
+* Analysis
+* Argument (Petitioner)
+* Argument (Respondent)
+* Fact
+* Issue
+* Statute
+* Preamble
+* Precedent
+* Ratio Decidendi
+* Court Ruling
+
+### Example
+
+Input:
+
+```text
+The accused entered the property without permission.
+```
+
+Output:
+
+```text
+Fact (FAC)
+```
+
+---
+
+## 📝 4. AI Legal Summarization
+
+Generates concise summaries of lengthy legal text using FLAN-T5.
+
+### Example
+
+Input:
+
+```text
+Long legal arguments and court observations...
+```
+
+Output:
+
+```text
+Short summary containing key legal points and decisions.
+```
+
+---
+
+# 🧠 AI Models Used
+
+## Legal Document Question Answering
+
+### Model
+
+Gemini 2.5 Flash
+
+### Technique
+
+Retrieval-Augmented Generation (RAG)
+
+### Purpose
+
+Generate document-grounded answers while minimizing hallucinations.
+
+---
+
+## IPC Section Prediction
+
+### Base Model
+
+Legal-BERT
+
+### Architecture
+
+```text
+Legal-BERT
+     ↓
+Dropout Layer
+     ↓
+Linear Layer
+     ↓
+Sigmoid Activation
+     ↓
+Multi-Label IPC Prediction
+```
+
+### Purpose
+
+Predict applicable IPC sections from crime descriptions.
+
+---
+
+## Legal Text Classification
+
+### Model
+
+Fine-Tuned Transformer Classifier
+
+### Purpose
+
+Classify legal statements into rhetorical and legal categories.
+
+---
+
+## Legal Summarization
+
+### Model
+
+FLAN-T5 Base
+
+### Purpose
+
+Generate concise legal summaries while preserving important information.
+
+---
+
+# 🛠️ Tech Stack
+
+## Frontend
+
+* Streamlit
+
+## Backend
+
+* Python
+
+## Deep Learning
+
+* PyTorch
+
+## NLP & Transformers
+
+* Hugging Face Transformers
+* Legal-BERT
+* FLAN-T5
+
+## Vector Database
+
+* FAISS
+
+## Embedding Model
+
+* all-MiniLM-L6-v2
+
+## LLM
+
+* Gemini 2.5 Flash
+
+## PDF Processing
+
+* PyPDF2
+
+---
+
+# 📂 Repository Structure
+
+```text
+ILAA/
+│
+├── assets/
+│   ├── architecture.png
+│   ├── home.png
+│   ├── classifier.png
+│   ├── ipc_predictor.png
+│   └── summarizer.png
+│
+├── notebooks/
+│   ├── IPC_Section_Prediction_Training.ipynb
+│   └── Legal_Text_Classification_Training.ipynb
+│
+├── LICENSE
+├── README.md
+├── app.py
+├── inference.py
+├── requirements.txt
+└── .gitignore
+```
+
+---
+
+# 📚 Training Notebooks
+
+The model development and experimentation notebooks are available in the `notebooks/` directory.
+
+### IPC Section Prediction
+
+* Data Preprocessing
+* Legal-BERT Fine-Tuning
+* Multi-Label Classification
+* Threshold Optimization
+
+### Legal Text Classification
+
+* Dataset Preparation
+* Text Classification Pipeline
+* Transformer Fine-Tuning
+* Model Evaluation
+
+---
+
+# ⚙️ Installation
+
+## Clone Repository
+
 ```bash
-   git clone [https://github.com/SandeepKaur098/Indian-Legal-Assistant.git](https://github.com/SandeepKaur098/Indian-Legal-Assistant.git)
-   cd Indian-Legal-Assistant
+git clone https://github.com/SandeepKaur098/ILAA.git
+
+cd ILAA
+```
+
+## Create Virtual Environment
+
+```bash
+python -m venv venv
+```
+
+### Windows
+
+```bash
+venv\Scripts\activate
+```
+
+### Linux / Mac
+
+```bash
+source venv/bin/activate
+```
+
+## Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+## Run Application
+
+```bash
+streamlit run app.py
+```
+
+---
+
+# 🎯 Skills Demonstrated
+
+* Artificial Intelligence
+* Machine Learning
+* Deep Learning
+* Natural Language Processing
+* Generative AI
+* Retrieval-Augmented Generation (RAG)
+* Transformer Models
+* Vector Databases
+* Semantic Search
+* Prompt Engineering
+* Streamlit Deployment
+* End-to-End AI Application Development
+
+---
+
+# 🔮 Future Improvements
+
+* Multi-Language Legal Support
+* Voice-Based Legal Assistant
+* Legal Citation Generation
+* Case Recommendation System
+* Multi-Document Querying
+* Advanced Legal Reasoning Module
+* Cloud-Based Model Hosting
+
+---
+
+# 👨‍💻 Author
+
+### Sandeep Kaur
+
+**B.Tech Computer Science Engineering**
+
+Areas of Interest:
+
+* Artificial Intelligence
+* Machine Learning
+* Deep Learning
+* NLP
+* Generative AI
+* Large Language Models
+
+### Connect With Me
+
+💻 GitHub: https://github.com/SandeepKaur098
+
+---
+
+## ⭐ If you found this project useful, consider giving it a star on GitHub!
