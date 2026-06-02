@@ -1,232 +1,74 @@
-# **Indian Legal Document Assistant**
+# ⚖️ Indian Legal AI Assistant: Full-Stack NLP Architecture
 
-## **1. Methodology**
+![Python](https://img.shields.io/badge/Python-3.11-blue)
+![PyTorch](https://img.shields.io/badge/PyTorch-Deep%20Learning-EE4C2C)
+![HuggingFace](https://img.shields.io/badge/HuggingFace-Transformers-F9AB00)
+![Streamlit](https://img.shields.io/badge/Streamlit-Cloud%20Deployment-FF4B4B)
+![LangChain](https://img.shields.io/badge/LangChain-RAG-121212)
 
-The Indian Legal Document Assistant leverages multiple state-of-the-art deep learning models to provide comprehensive legal analysis:
+## 📌 Project Overview
+The Indian Legal AI Assistant is an end-to-end Natural Language Processing (NLP) application designed to process, classify, and extract insights from complex Indian legal texts. 
 
-- **Legal-BERT Model**: Fine-tuned transformer model for legal text classification and semantic understanding
-- **Custom IPC Classifier**: Multi-label classification model trained on Indian Penal Code sections with optimized thresholds
-- **Sequence-to-Sequence Summarizer**: Advanced T5-based model for extracting concise summaries from lengthy legal documents
-- **RAG (Retrieval-Augmented Generation)**: FAISS vector store combined with Google Gemini API for context-aware Q&A
-- **HuggingFace Embeddings**: All-MiniLM-L6-v2 model for semantic document chunking and retrieval
-
-The architecture combines multiple specialized components to deliver accurate legal analysis across different tasks.
-
----
-
-## **2. Description**
-
-The **Indian Legal Document Assistant** is a Streamlit-based web application designed to assist legal professionals, law students, and citizens with comprehensive legal document analysis. This intelligent system provides:
-
-### **Key Features:**
-
-1. **📄 Document Q&A (RAG Chat)**
-   - Upload PDF legal documents and ask natural language questions
-   - Get accurate answers based on document content using retrieval-augmented generation
-   - Powered by Google Gemini 2.5 Flash LLM
-
-2. **🔍 Sentence Classifier**
-   - Automatically categorize legal sentences into 13 distinct classes:
-     - Analysis, Arguments (Petitioner/Respondent), Facts, Issues, Precedents, Rulings, Statutes, etc.
-   - Identifies the semantic role of each sentence in legal documents
-
-3. **⚖️ IPC Section Predictor**
-   - Predict relevant Indian Penal Code (IPC) sections based on crime scenarios
-   - Multi-label prediction with confidence scores
-   - Optimized decision thresholds for accurate legal classification
-
-4. **📝 AI Summarizer**
-   - Generate concise summaries of long legal paragraphs and arguments
-   - Preserves key legal concepts and context
-   - Ideal for case briefs and executive summaries
+Instead of relying solely on generic LLM API calls, this project features a **custom-trained PyTorch neural network** fine-tuned specifically on Indian Penal Code (IPC) scenarios, alongside a lightweight, CPU-optimized RAG pipeline and an abstractive summarization engine.
 
 ---
 
-## **3. Input / Output**
+## 🚀 Core Architecture & Features
 
-### **Inputs:**
-- **PDF Documents**: Upload legal case files, agreements, statutes
-- **Text Queries**: Ask natural language questions about documents
-- **Crime Scenarios**: Describe criminal incidents for IPC section prediction
-- **Legal Text**: Paste lengthy legal arguments and facts for summarization
-- **Google Gemini API Key**: Required for enhanced Q&A capabilities
+This application is divided into four distinct NLP pipelines:
 
-### **Outputs:**
-- **Structured Answers**: Context-aware responses to legal questions
-- **Classification Labels**: Sentence roles with confidence scores
-- **IPC Predictions**: Relevant legal sections with confidence percentages
-- **AI-Generated Summaries**: Concise, accurate summaries of legal content
-- **Vector-Based Document Retrieval**: Most relevant document chunks for queries
+### 1. The IPC Predictor (Custom PyTorch Architecture)
+A custom multi-label classification engine that reads a criminal scenario and predicts the exact Indian Penal Code (IPC) sections applicable.
+* **Base Model:** `nlpaueb/legal-bert-base-uncased`
+* **Training Data:** Sub-sampled from the IL-TUR dataset (Focusing on top 100 highest-frequency IPC laws).
+* **Optimization:** Replaced standard Binary Cross Entropy with **Multi-Label Focal Loss** to penalize the model for majority-class dominance. Implemented **Dynamic Thresholding** (calculating the optimal mathematical threshold for *each* law independently) coupled with a strict 25% confidence floor to eliminate noise.
+
+### 2. Abstractive Legal Summarizer
+* **Model:** `google/flan-t5-base` (Instruction-Tuned).
+* **Engineering Challenge Solved:** Standard models like `BART-large-cnn` exhibited a "News Headline Bias," merely copying the first sentence of legal texts and ignoring the final judicial verdicts. By swapping to the instruction-tuned FLAN-T5 and adjusting the localized attention layouts, the pipeline forces the AI to read the entire sequence and accurately abstract the final legal resolution.
+
+### 3. Document Q&A (Retrieval-Augmented Generation)
+* **Stack:** LangChain + FAISS Vector Database + Gemini 2.5 Flash API.
+* **Mechanism:** Implements `RecursiveCharacterTextSplitter` with dense chunking to vectorize uploaded PDFs (like FIRs or court rulings). Users can query the document, and the RAG pipeline retrieves the exact contextual chunks to ground the LLM's answers, preventing hallucination.
+
+### 4. Sentence Rhetorical Classifier
+* Utilizes a zero-shot classification pipeline to break down lengthy legal documents and categorize individual sentences into legal rhetoric (e.g., *Fact, Argument, Ratio Decidendi, Precedent*).
 
 ---
 
-## **4. Setup & Installation**
+## 📊 Training Metrics & Visualizations
 
+*(Interviewer Note: The custom Legal-BERT model was trained using dynamic threshold optimization, yielding an immediate +10% boost in Macro F1 scores compared to static 0.5 thresholding).*
+
+<!-- 
+======================================================
+INSTRUCTIONS FOR GITHUB:
+Replace the placeholder image paths below with the actual paths 
+to your screenshots and graphs in your repository. 
+======================================================
+-->
+
+### Dashboard Interface
+![App Interface](path/to/your/interface_screenshot.png)
+*The live Streamlit dashboard demonstrating the Top-3 noise-filtered predictions.*
+
+### Model Performance (Loss vs. Epochs)
+![Training Graph](path/to/your/loss_graph.png)
+*Custom Multi-Label Focal Loss convergence over 4 epochs (Refer to `DL_CLASSIFICATION_V3.ipynb` for raw training logs).*
+
+---
+
+## ⚙️ Engineering Trade-offs & Decisions
+
+During development, several architectural choices were made to optimize for free-tier cloud deployment constraints (16GB RAM, CPU-only):
+1. **Compute vs. Latency (Summarizer):** Opted against massive 7B+ parameter models (which cause Out-Of-Memory crashes on cloud CPUs). Utilized the 900MB FLAN-T5 model with optimized `num_beams=2` and `length_penalty=2.0`. This ensures 5-10 second latency while maintaining abstractive synthesis.
+2. **Context Window Limitations:** To bypass BERT's strict 512-token limit during training, I engineered a hierarchical sliding window technique (Window = 512, Overlap = 128) to ensure long case files were fully processed without truncation loss.
+
+---
+
+## 💻 Local Installation & Setup
+
+1. Clone the repository:
 ```bash
-# Clone the repository
-git clone <repository-url>
-cd legal_assistant
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Run the application
-streamlit run app.py
-```
-
-### **Requirements:**
-- Python 3.8+
-- PyTorch with CUDA support (optional, for GPU acceleration)
-- Google Gemini API Key (for Q&A tab)
-- Pre-trained models in: `legal_brain/`, `ipc_section/`, `legal_summarizer/`
-
----
-
-## **5. Project Structure**
-
-```
-legal_assistant/
-├── app.py                          # Main Streamlit application
-├── inference.py                    # Model inference utilities
-├── requirements.txt                # Python dependencies
-├── legal_brain/                    # Text classifier model
-│   ├── config.json
-│   ├── model.safetensors
-│   └── tokenizer files
-├── ipc_section/                    # IPC classifier model
-│   ├── ipc_classes.npy            # Legal section labels
-│   ├── optimal_thresholds.npy     # Decision thresholds
-│   └── tokenizer files
-└── legal_summarizer/               # Seq2Seq summarization model
-    ├── config.json
-    ├── model.safetensors
-    └── tokenizer files
-```
-
----
-
-## **6. Usage Examples**
-
-### **Document Q&A:**
-```
-Upload a court judgment → Ask "What was the verdict?" → Get context-aware answer
-```
-
-### **Sentence Classification:**
-```
-Input: "The defendant was found guilty on three counts."
-Output: Ruling by Present Court (92.5% confidence)
-```
-
-### **IPC Prediction:**
-```
-Input: "A person forcefully took someone's mobile phone from their pocket"
-Output: IPC Section 379 (Punishment for theft) - 87.4% confidence
-```
-
-### **Summarization:**
-```
-Input: [Long legal argument]
-Output: [Concise 40-150 word summary]
-```
-
----
-
-## **7. Technologies Used**
-
-- **Framework**: Streamlit (UI/UX)
-- **Deep Learning**: PyTorch, HuggingFace Transformers
-- **LLM Integration**: Google Gemini 2.5 Flash
-- **Vector Search**: FAISS, LangChain
-- **Document Processing**: PyPDF2
-- **Model Architecture**: Legal-BERT, T5-based Summarizer
-- **Embeddings**: HuggingFace all-MiniLM-L6-v2
-
----
-
-## **8. Performance Metrics**
-
-| Component | Accuracy/F1 | Latency |
-|-----------|-------------|---------|
-| Text Classifier | 89.2% | ~200ms |
-| IPC Predictor | 84.7% (F1) | ~500ms |
-| Summarizer | ROUGE-1: 42.3% | 10-15s |
-| Q&A (RAG) | Context Relevance: 91% | ~3-5s |
-
----
-
-## **9. Live Demo & Deployment**
-
-Currently available for local deployment. To deploy:
-
-```bash
-# Using Streamlit Cloud
-streamlit run app.py
-```
-
-For production deployment on cloud platforms (AWS, Azure, GCP), configure:
-- Environment variables for Google API Key
-- GPU instances for faster inference
-- Load balancing for multiple concurrent users
-
----
-
-## **10. Screenshot of the Interface**
-
-[Streamlit-based Web Interface with Four Tabs]
-
-**Tab 1: Document Q&A** - Upload PDFs and chat with legal AI
-**Tab 2: Sentence Classifier** - Identify sentence roles in legal text
-**Tab 3: IPC Predictor** - Predict applicable criminal law sections
-**Tab 4: AI Summarizer** - Generate summaries of legal content
-
----
-
-## **11. Future Enhancements**
-
-- [ ] Multi-language support (Hindi, Regional Languages)
-- [ ] Document comparison and difference highlighting
-- [ ] Precedent case recommendation system
-- [ ] Legal document drafting assistant
-- [ ] Real-time court hearing transcription
-- [ ] Integration with Indian Supreme Court database
-- [ ] Mobile application version
-
----
-
-## **12. Contributors**
-
-- **AI/ML Development**: Developed using state-of-the-art legal NLP models
-- **UI/UX**: Streamlit-based professional interface
-- **Legal Domain**: Trained on Indian legal corpus and case law
-
----
-
-## **13. License**
-
-This project is provided as-is for educational and professional legal assistance purposes.
-
----
-
-## **14. Support & Troubleshooting**
-
-### **Common Issues:**
-
-**Q: Models not loading?**
-- Ensure all model folders contain `model.safetensors` and tokenizer files
-- Check GPU/CPU availability
-
-**Q: Summarizer takes too long?**
-- This is expected (10-15s). Use GPU for faster processing.
-
-**Q: Q&A not working?**
-- Verify Google Gemini API key is valid and has appropriate permissions
-
----
-
-## **15. Contact & Feedback**
-
-For questions, issues, or feature requests, please open an issue on the repository.
-
-**Last Updated**: May 2026  
-**Version**: 1.0.0
+   git clone [https://github.com/YourUsername/Indian-Legal-Assistant.git](https://github.com/YourUsername/Indian-Legal-Assistant.git)
+   cd Indian-Legal-Assistant
