@@ -1,10 +1,10 @@
-# ⚖️ Indian Legal AI Assistant (ILAA)
+# Indian Legal AI Assistant (ILAA)
 
 An AI-powered Legal Assistant that combines **Retrieval-Augmented Generation (RAG), Legal-BERT, FAISS, Gemini, and FLAN-T5** to help users analyze legal documents, predict IPC sections, classify legal text, and generate concise legal summaries.
 
 ---
 
-## 🚀 Live Demo
+## Live Demo
 
 ### 🔗 Try the Application
 
@@ -12,13 +12,13 @@ An AI-powered Legal Assistant that combines **Retrieval-Augmented Generation (RA
 
 https://huggingface.co/spaces/Sandeep-Kaur12/Indian-Legal-AI-Assistant
 
-### 💻 GitHub Repository
+### GitHub Repository
 
 https://github.com/SandeepKaur098/ILAA
 
 ---
 
-# 📖 Project Overview
+# Project Overview
 
 Legal documents are often lengthy, complex, and difficult to understand for non-legal professionals.
 
@@ -43,41 +43,41 @@ This project demonstrates practical implementation of:
 
 ---
 
-# 📸 Application Screenshots
+# Application Screenshots
 
-## 🏠 Home / Document Q&A
+## Home / Document Q&A
 
 ![Home](assets/home.png)
 
 ---
 
-## 🔍 Legal Text Classification
+## Legal Text Classification
 
 ![Classifier](assets/classifier.png)
 
 ---
 
-## ⚖️ IPC Section Prediction
+## IPC Section Prediction
 
 ![IPC Predictor](assets/ipc_predictor.png)
 
 ---
 
-## 📄 AI Legal Summarizer
+## AI Legal Summarizer
 
 ![Summarizer](assets/summarizer.png)
 
 ---
 
-# 🏗️ System Architecture
+# System Architecture
 
 ![Architecture](assets/architecture.png)
 
 ---
 
-# ✨ Key Features
+# Key Features
 
-## 📄 1. Document Question Answering (RAG)
+## 1. Document Question Answering (RAG)
 
 Upload legal PDF documents and ask questions in natural language.
 
@@ -107,7 +107,7 @@ Answer generated directly from the uploaded document context.
 
 ---
 
-## ⚖️ 2. IPC Section Prediction
+## 2. IPC Section Prediction
 
 Predicts the most relevant IPC sections from a crime scenario using a Legal-BERT based multi-label classification model.
 
@@ -138,7 +138,7 @@ Confidence Score
 
 ---
 
-## 🏛️ 3. Legal Text Classification
+## 3. Legal Text Classification
 
 Classifies legal statements into predefined legal categories.
 
@@ -171,7 +171,7 @@ Fact (FAC)
 
 ---
 
-## 📝 4. AI Legal Summarization
+## 4. AI Legal Summarization
 
 Generates concise summaries of lengthy legal text using FLAN-T5.
 
@@ -191,7 +191,7 @@ Short summary containing key legal points and decisions.
 
 ---
 
-# 🧠 AI Models Used
+# AI Models Used
 
 ## Legal Document Question Answering
 
@@ -259,7 +259,7 @@ Generate concise legal summaries while preserving important information.
 
 ---
 
-# 🛠️ Tech Stack
+# Tech Stack
 
 ## Frontend
 
@@ -297,7 +297,7 @@ Generate concise legal summaries while preserving important information.
 
 ---
 
-# 📂 Repository Structure
+# Repository Structure
 
 ```text
 ILAA/
@@ -323,7 +323,7 @@ ILAA/
 
 ---
 
-# 📚 Training Notebooks
+# Training Notebooks
 
 The model development and experimentation notebooks are available in the `notebooks/` directory.
 
@@ -343,7 +343,7 @@ The model development and experimentation notebooks are available in the `notebo
 
 ---
 
-# ⚙️ Installation
+# Installation
 
 ## Clone Repository
 
@@ -385,7 +385,7 @@ streamlit run app.py
 
 ---
 
-# 🎯 Skills Demonstrated
+# Skills Demonstrated
 
 * Artificial Intelligence
 * Machine Learning
@@ -402,7 +402,7 @@ streamlit run app.py
 
 ---
 
-# 🔮 Future Improvements
+# Future Improvements
 
 * Multi-Language Legal Support
 * Voice-Based Legal Assistant
@@ -414,7 +414,7 @@ streamlit run app.py
 
 ---
 
-# 👨‍💻 Author
+# Author
 
 ### Sandeep Kaur
 
@@ -431,8 +431,8 @@ Areas of Interest:
 
 ### Connect With Me
 
-💻 GitHub: https://github.com/SandeepKaur098
+GitHub: https://github.com/SandeepKaur098
 
 ---
 
-## ⭐ If you found this project useful, consider giving it a star on GitHub!
+## If you found this project useful, consider giving it a star on GitHub!
